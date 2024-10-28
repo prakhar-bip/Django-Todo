@@ -35,7 +35,12 @@ def update_task(request, task_id):
         description = request.POST['task_desc']
         task.Title = title
         task.Description = description
-        task.save()
-        return redirect('view')
-    
+        complete = request.POST['complete']
+        if (complete == 'on'):
+            task.Is_completed = True
+            task.save()
+            return redirect('view')
+        else:
+            task.save()
+            return redirect('view')
     return render(request, 'Update.html', {'task': task})
